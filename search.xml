@@ -4,13 +4,111 @@
   
     
     <entry>
+      <title>使用system备份ubuntu生成iso镜像</title>
+      <link href="/2020/07/13/%E4%BD%BF%E7%94%A8system%E5%A4%87%E4%BB%BDubuntu%E7%94%9F%E6%88%90iso%E9%95%9C%E5%83%8F/"/>
+      <url>/2020/07/13/%E4%BD%BF%E7%94%A8system%E5%A4%87%E4%BB%BDubuntu%E7%94%9F%E6%88%90iso%E9%95%9C%E5%83%8F/</url>
+      
+        <content type="html"><![CDATA[<p>本地环境： ubuntu16.04<br>1 安装Systemback</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo add-apt-repository ppa:nemh&#x2F;systemback</span><br><span class="line">sudo apt-get update &amp;&amp; sudo apt-get install systemback unionfs-fuse</span><br></pre></td></tr></table></figure><a id="more"></a><p>2 使用Systemback生成镜像文件<br>(1)打开软件，输入密码<br><img src="/image/live_system_create.png" alt="live_system_create"></p><p>(2)勾选左侧的include the user data files（包含用户数据文件），这样自己主文件夹内的文件都会被包含在系统镜像中。很多相关的程序的配置文件都是保存在主文件夹内的。Working Directory是设置工作目录，程序运行时产生的临时文件都会被保存在这里。所以一定要保证这里有足够的存储空间。</p><p><img src="/image/create_new.png" alt="create_new"></p><p>3 压缩系统镜像<br>Systemback在使用时会发现当生成的sblive文件大于4G的时候是没有办法生成iso文件的。这是由于iso文件自身的限制，iso9600对于文件有限制，单个文件不能超过2G，总的iso文件不能超过4G。<br>所以当上面生成的系统镜像如果大于4G，不能直接转存为iso文件，就要使用采用udf文件系统压缩再转存为光盘文件，下面就是具体的解决方法了。<br>进入计算机的home文件夹，可以看到这里面有一个systemback生成的文件 ****.sblive</p><p>3.1 解压 .sblive 文件：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir sblive</span><br><span class="line">tar -xf &#x2F;home&#x2F;systemback_live_2018-10-15.sblive -C sblive   &#x2F;&#x2F;这里换成你自己的文件名</span><br></pre></td></tr></table></figure><p>3.2重命名syslinux 至 isolinux：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mv sblive&#x2F;syslinux&#x2F;syslinux.cfg sblive&#x2F;syslinux&#x2F;isolinux.cfg</span><br><span class="line">mv sblive&#x2F;syslinux sblive&#x2F;isolinux</span><br></pre></td></tr></table></figure><p>3.3 安装 cdtools</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install aria2</span><br><span class="line"></span><br><span class="line">aria2c -s 10 https:&#x2F;&#x2F;nchc.dl.sourceforge.net&#x2F;project&#x2F;cdrtools&#x2F;alpha&#x2F;cdrtools-3.02a07.tar.gz</span><br><span class="line"></span><br><span class="line">tar -xvf cdrtools-3.02a07.tar.gz</span><br><span class="line"></span><br><span class="line">cd cdrtools-3.02</span><br><span class="line">make</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure><p>3.4生成ISO文件：<br><code>/opt/schily/bin/mkisofs -iso-level 3 -r -V sblive -cache-inodes -J -l -b isolinux/isolinux.bin -no-emul-boot -boot-load-size 4 -boot-info-table -c isolinux/boot.cat -o sblive.iso sblive</code><br>同样的，这里名字改成你自己的文件名</p><p>3.5最终生成iso镜像<br><img src="/image/iso.png" alt="生成了iso镜像"></p><p>现在的镜像就可以直接进行安装了，但是，经过测试发现，这样备份的系统，如果原来已经安装了nvidia，wifi等驱动，那么这里也会进行备份，然后就会造成换了新电脑，导致循环进入桌面，猜测是由于驱动的不兼容造成的，所以，最好的结果还是在备份系统之前，最好不要安装显卡驱动等，避免造成不必要的麻烦。</p><p>参考链接：<a href="https://www.cnblogs.com/Pan-xi-yi/p/11830789.html" target="_blank" rel="noopener">目前来看这个行得通</a></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> ubuntu </tag>
+            
+            <tag> 备份 </tag>
+            
+            <tag> iso </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>hexo以及markdown常见语法</title>
+      <link href="/2020/07/13/hexo%E4%BB%A5%E5%8F%8Amarkdown%E5%B8%B8%E8%A7%81%E8%AF%AD%E6%B3%95/"/>
+      <url>/2020/07/13/hexo%E4%BB%A5%E5%8F%8Amarkdown%E5%B8%B8%E8%A7%81%E8%AF%AD%E6%B3%95/</url>
+      
+        <content type="html"><![CDATA[<h1 id="hexo"><a href="#hexo" class="headerlink" title="hexo"></a>hexo</h1><p><code>hexo g</code> 生成<br><code>hexo s</code> 预览</p><p>定义多个标签<br><code>tags: [,,,]</code></p><a id="more"></a><h1 id="markdown"><a href="#markdown" class="headerlink" title="markdown"></a>markdown</h1><h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"># 一级标题 </span><br><span class="line">## 二级标题</span><br><span class="line">### 三级标题</span><br></pre></td></tr></table></figure><p>插入图片：<br>1.本地图片<br>在与_posts同级的目录，新建一个image文件夹专门用来存储image，拷贝图片到该路径<br>格式: <code>![文件描述](/image/***)</code></p><p>参看：<a href="http://xianbai.me/learn-md/index.html" target="_blank" rel="noopener">markdown详细资料</a></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
+            
+            <tag> markdown </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>windows下通过hexo搭建github博客(无域名)</title>
+      <link href="/2020/07/13/windows%E4%B8%8B%E9%80%9A%E8%BF%87hexo%E6%90%AD%E5%BB%BAgithub%E5%8D%9A%E5%AE%A2-%E6%97%A0%E5%9F%9F%E5%90%8D/"/>
+      <url>/2020/07/13/windows%E4%B8%8B%E9%80%9A%E8%BF%87hexo%E6%90%AD%E5%BB%BAgithub%E5%8D%9A%E5%AE%A2-%E6%97%A0%E5%9F%9F%E5%90%8D/</url>
+      
+        <content type="html"><![CDATA[<h1 id="1-安装git和node-js"><a href="#1-安装git和node-js" class="headerlink" title="1.安装git和node.js"></a>1.安装<a href="https://git-scm.com/download/win" target="_blank" rel="noopener">git</a>和<a href="https://git-scm.com/" target="_blank" rel="noopener">node.js</a></h1><h1 id="2-配置-ssh-keys"><a href="#2-配置-ssh-keys" class="headerlink" title="2.配置 ssh keys"></a>2.配置 ssh keys</h1><h2 id="1-检查电脑是否有key"><a href="#1-检查电脑是否有key" class="headerlink" title="(1)检查电脑是否有key"></a>(1)检查电脑是否有key</h2><p><code>$ cd ~/.ssh</code><br>如果显示”no such file”，则说明没有</p><h2 id="2-生成新的ssh-key"><a href="#2-生成新的ssh-key" class="headerlink" title="(2)生成新的ssh key"></a>(2)生成新的ssh key</h2><p><code>$ ssh-keygen -t rsa -C &quot;邮件地址@youremail.com&quot;</code><br>一路回车</p><a id="more"></a><h2 id="3-添加ssh-key-到github"><a href="#3-添加ssh-key-到github" class="headerlink" title="(3)添加ssh key 到github"></a>(3)添加ssh key 到github</h2><p>打开上述路径复制id_rsa.pub的内容，登陆github(Settings—SSH and GPG keys—New SSH key)</p><h2 id="4-测试"><a href="#4-测试" class="headerlink" title="(4)测试"></a>(4)测试</h2><p><code>$ ssh -T git@github.com</code><br>然后输入yes回车，如果有设置密码的话会提示输入密码，没有的则跳过。<br>最后出现successful就成功了</p><h2 id="5-完善个人信息"><a href="#5-完善个人信息" class="headerlink" title="(5)完善个人信息"></a>(5)完善个人信息</h2><p><code>$ git config --global user.name &quot;wuyalan&quot;//输入注册时的username$ git config --global user.email  &quot;alan.wyl@foxmail.com&quot;//填写注册邮箱</code></p><h1 id="3-安装hexo"><a href="#3-安装hexo" class="headerlink" title="3.安装hexo"></a>3.安装hexo</h1><p><code>$ npm install -g hexo-cli</code><br>通过查看版本号查看是否安装成功<br><code>$ hexo version</code></p><h1 id="4-创建工作目录"><a href="#4-创建工作目录" class="headerlink" title="4.创建工作目录"></a>4.创建工作目录</h1><p>命名一个工作路径<br><code>$ hexo init</code> 这里会创建hexo需要的所有文件到这个文件路径</p><p>安装依赖包<br><code>npm install</code></p><p>确保git部署<br><code>$ npm install hexo-deployer-git --save</code></p><h1 id="5-查看，更新，上传"><a href="#5-查看，更新，上传" class="headerlink" title="5.查看，更新，上传"></a>5.查看，更新，上传</h1><p><code>$ hexo g  //每次进行相应改动都要hexo g 生成一下</code><br><code>$ hexo s  //启动服务预览</code><br>此时在浏览器中输入：<code>localhost:4000</code>可以进行预览<br><code>$ hexo g -d</code> 上传到github上</p><h1 id="6-更改主题"><a href="#6-更改主题" class="headerlink" title="6.更改主题"></a>6.更改主题</h1><p>在<a href="https://hexo.io/themes/" target="_blank" rel="noopener">hexo官网</a><br>找到一个主题后，进入其github目录,复制clone<br>打开终端：<code>gic clone ****  themes/主题名字</code><br>clone完毕后<br>进入项目，找到_config.yml 搜索theme 将其改成下载的样式名字，在看效果</p><p>参考链接：<a href="https://zhuanlan.zhihu.com/p/80142778" target="_blank" rel="noopener">知乎github+hexo搭建个人博客</a></p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
+            
+            <tag> github </tag>
+            
+            <tag> windows </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>gsdgg</title>
+      <link href="/2020/07/13/gsdgg/"/>
+      <url>/2020/07/13/gsdgg/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 456 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>test</title>
       <link href="/2020/07/13/test/"/>
       <url>/2020/07/13/test/</url>
       
-        <content type="html"><![CDATA[<p>测试时中山东莞深度</p><p><code>dfsdgsg int main</code></p>]]></content>
+        <content type="html"><![CDATA[<p>测试时中山东莞深度</p><p><code>dfsdgsg int main</code><br>$\alpha+\beta=\gamma$</p><p>$\alpha+\beta=\gamma$</p>]]></content>
       
       
+      <categories>
+          
+          <category> ROS </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 123 </tag>
+            
+        </tags>
       
     </entry>
     
@@ -21,9 +119,15 @@
       <link href="/2020/07/13/hello-world/"/>
       <url>/2020/07/13/hello-world/</url>
       
-        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+        <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
       
       
+      
+        <tags>
+            
+            <tag> 123 </tag>
+            
+        </tags>
       
     </entry>
     
