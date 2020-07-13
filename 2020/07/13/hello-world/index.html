@@ -1,67 +1,175 @@
 
-
-
-
-
-
-<!doctype html>
-<html lang="zh-CN">
-
-<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
-<script type="text/javascript" 
-src="//cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.js">
-</script>
-<link href=  "/plugins/code-theme/tomorrow.css" type="text/css" rel="stylesheet" />
-<link rel="stylesheet" href="/plugins/github-markdown.css">
-
+<!DOCTYPE html>
+<html lang="zh_CN">
+    <!DOCTYPE html>
+<html lang="zh_CN">
 <head>
-  <meta charset="UTF-8" name="viewport" content="width=device-width,initial-scale=1">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  
+    <link rel="icon" href="/img/favicon.ico">
+  
+  
+      <meta name="author" content="蓉城蒲菊">
+  
+  
+  
+  
+  
+    <link rel="alternate" href="/atom.xml " title="蒲菊的博客" type="application/atom+xml">
+  
+
+  
+
+  <title>Hello World | 蒲菊的博客</title>
+
+  
+
+  
+
+  
+
+
+  
+
   
     
+      <link rel="stylesheet" href="/css/style.css">
     
-      <link rel="stylesheet" href="/css/legend.css">
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css">
+    
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css">
     
   
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.1/styles/atelier-cave-light.css">
+    
+
 <meta name="generator" content="Hexo 4.2.1"></head>
-
-<body id="body-x">
-<div id="layout-content">
-  <div id="menu-outer-x">
-  <div id="menu-inner">
+</html>
     
-    
-    <div id="site-title">
-      ����
+<header class="header">
+    <div class="title animated fadeInDown">
+    <div class="title">
+        <a href="/" class="logo">蒲菊的博客</a>
     </div>
-    
-
-     
-    <div>
-    
-      
-      <a href="/">首页</a>
-      
-    
-      
-      <a href="/archives">归档</a>
-      
-    
-    </div>
-  </div>
-</div> 
-  <div id="content-outer">
-    <div id="content-inner">
-      
-      
-  <article class="markdown-body">
-    <h2 id="post-title">Hello World
-       
-        <div id="post-time" datetime="2020-07-13T02:11:02.326Z">
-          2020-07-13
+    </div> 
+    <div class="navbar animated fadeInDown">
+        <div class="motto">
+            <h2>Do what you love,love what you do.</h2>
         </div>
-      
-    </h2>
-    <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+</header>
+
+
+
+    <div class="nav index" style="height: 60px;">
+    <div class="title animated fadeInDown">
+        <div class="layui-container">
+            
+            <div class="nav-list">
+                <button> <span class=""></span><span style="display: block;"></span><span class=""></span> </button>
+                <ul class="layui-nav" lay-filter="">
+                    
+                    <li class="layui-nav-item">
+                        <a href="/">
+                            <i class="fab fa-fort-awesome"></i>
+                            Home
+                        </a>
+                    </li>
+                    
+                    <li class="layui-nav-item">
+                        <a href="/archives/">
+                            <i class="fas fa-archive"></i>
+                            Archives
+                        </a>
+                    </li>
+                    
+                    <li class="layui-nav-item">
+                        <a href="/tags/">
+                            <i class="fas fa-hashtag"></i>
+                            Tags
+                        </a>
+                    </li>
+                    
+                    <li class="layui-nav-item">
+                        <a href="/category/">
+                            <i class="far fa-folder-open"></i>
+                            Categorys
+                        </a>
+                    </li>
+                    
+                    <li class="layui-nav-item">
+                        <a href="/about/">
+                            <i class="fab fa-grav"></i>
+                            About
+                        </a>
+                    </li>
+                    
+                    <li class="layui-nav-item">
+                        <a href="/guestbook/">
+                            <i class="fab fa-telegram"></i>
+                            Guestbook
+                        </a>
+                    </li>
+                    
+                    <li class="layui-nav-item">
+                        <a href="/link/">
+                            <i class="fab fa-weixin"></i>
+                            Friends
+                        </a>
+                    </li>
+                    
+                    <li class="layui-nav-item">
+                        
+                        <div id="dark" onclick="switchDarkMode()"></div>
+                        <script>
+                            if (localStorage.getItem('dark') === '1') {
+                                document.body.classList.add('dark');
+                            }
+                            document.getElementById('dark').innerHTML = document.querySelector("body").classList.contains("dark") ? "🌙" : "🌞";
+                        </script>
+                        
+                    </li>
+                    <span class="layui-nav-bar" style="left: 342px; top: 78px; width: 0px; opacity: 0;"></span>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+    
+<article id="post">
+  <div class="post-title">Hello World</div>
+  <div class="post-meta">
+        
+        
+          <div class="post-meta-item date">
+            <span title="Created 2020-07-13"><i class="far fa-calendar-alt"></i> 2020.07.13</span>
+          </div>
+          <div class="post-meta-item updated">
+            <span title="Updated 2020-07-13"><i class="far fa-calendar-check"></i> 2020.07.13</span>
+          </div>
+         
+         
+        
+         <div class="post-meta-item wordcount">
+            
+              <i class="fas fa-pencil-alt"></i> <span class="post-count">73 words</span>
+               
+            
+              <i class="far fa-clock"></i> <span class="post-count">1 min</span>
+                                   
+          </div>
+         
+   </div>
+
+  <div id="toc" class="toc">
+        <h1>Toc</h1>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+    </div>
+  
+<div class="content">
+      <div><p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
 
 <p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
@@ -74,125 +182,221 @@ src="//cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.js">
 <h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-  </article>
-
-  
-    
-    
-    
-    
-    
-      
-      <div id="play-button"  style="background-color: #6d5aca; border: solid 2px #6d5aca;">
-  <img id="play-img" src="/images/playback_play.png"></img>
 </div>
-<audio id="bgaudio" loop="loop" preload="none"> 
-  <source src=http://cdn.calm.com/scenes/scene-Qqkzy9k7Eo.m4a?v=1418162240715 type="audio/mpeg">
-</audio>
-
-<script>
-$(document).ready(function(){
-  //播放按钮点击
-  var audio = $("#bgaudio")[0];
-  var img = $("#play-img")[0];
-  $("#play-button").click(function(){ 
-    if (audio.paused || audio.ended) {
-      audio.play();
-      img.src = "/images/playback_pause.png";
-    } else {
-      audio.pause();
-      img.src = "/images/playback_play.png";
-    }
-  });
-});
-</script>
-    
-
-    
-    
-
-  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
-    <div id="reward_comment">文章对我有帮助，打赏作者</div>
-    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
-      <span>赏</span>
-    </button>
-    <div id="QR" style="display: none;">
+      <div class="post-copyright">
       
-        <div id="wechat" style="display: inline-block">
-          <img id="wechat_qr" src="/images/wechatpay.png" alt="John Doe WeChat Pay"/>
-          <p>微信</p>
+                <div class="copyright-item">
+                    <span> Author: 蓉城蒲菊</span>
+                </div>
+                <div class="copyright-item">
+                    <span> Link: <a href="https://github.com/liangpu597/2020/07/13/hello-world/">https://github.com/liangpu597/2020/07/13/hello-world/</a></span>
+                </div>
+                <div class="copyright-item">
+                    <span> License: 本博客所有文章除特别声明外，均采用许可协议 <a href="http://creativecommons.org/licenses/by-nc/4.0/" target="_blank" rel="noopener">CC-BY-NC-4.0</a> 转载请注明出处！</span>
+                </div>
+       
+      </div>
+</div>
+
+  <div class="share-reward">
+    <div class="share">
+        
+<div class="social-share" data-sites="facebook,twitter,wechat,weibo,qq"></div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css">
+<script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js"></script>
+
+
+      </div>
+    <div class="reward">
+        
+  <div style="padding: 10px 0; margin-left: 20px; width: 90%; text-align: center;">
+    <div class="reward-content">
+        <ul id="donateBox" class="list pos-a">
+          
+           <li id="PayPal"><a href="https://paypal.me/" target="_blank" title="PayPal">PayPal</a></li>
+            
+          
+            <li id="AliPay" data-img="/img/alipay.jpg" title="Alipay">Alipay</li>
+               
+                 
+            <li id="WeChat" data-img="/img/wechat.jpg" title="Wechatpay">Wechatpay</li>
+                      
+          </ul>
+        <div id="QRBox" class="pos-f left-100">
+          <div id="MainBox"></div>
         </div>
-      
-      
-        <div id="alipay" style="display: inline-block">
-          <img id="alipay_qr" src="/images/alipay.png" alt="John Doe Alipay"/>
-          <p>支付宝</p>
-        </div> 
-      
     </div>
   </div>
-
-
   
-
+      </div>
     </div>
+    
+    <div class="post_tags">
+      
+    </div>
+    <div class="post-nav">
+      
+      
+    </div>
+
+
+    <div class="comments">
+      <div class="comments">
+    
+      <script src="//cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script>
+      <div id="comment" class="vcomment" ></div>
+      <script>
+          var notify = 'false' == true ? true : false;
+          var verify = 'false' == true ? true : false;
+          var GUEST_INFO = ['nick','mail','link'];
+          var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+              return GUEST_INFO.indexOf(item) > -1
+          });
+          guest_info = guest_info.length == 0 ? GUEST_INFO :guest_info;
+          window.valine = new Valine({
+              el: '.vcomment',
+              notify: notify,
+              verify: verify,
+              appId: "",
+              appKey: "",
+              avatar: "mm",
+              placeholder: "Just go go",
+              guest_info:guest_info,
+              pageSize:'10',
+              recordIP: 'false',
+              serverURLs: "",
+              emojiCDN: "",
+              enableQQ: "true",
+          });
+      </script>
+    
   </div>
-</div>
+    </div>
+</article>
+
+    
+<a id="gotop" href="javascript:" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+<script>
+    window.onscroll = function() {scrollFunction()};
+     
+    function scrollFunction() {console.log(121);
+        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+            document.getElementById("gotop").style.display = "block";
+        } else {
+            document.getElementById("gotop").style.display = "none";
+        }
+    }
+     
+    function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
+    </script>
+    
 
 
-  <!-- 来必力City版安装代码 -->
-<div id="lv-container" data-id="city" data-uid="MTAyMC8yOTI2MS81ODI5">
-	<script type="text/javascript">
-   (function(d, s) {
-       var j, e = d.getElementsByTagName(s)[0];
-
-       if (typeof LivereTower === 'function') { return; }
-
-       j = d.createElement(s);
-       j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-       j.async = true;
-
-       e.parentNode.insertBefore(j, e);
-   })(document, 'script');
-	</script>
-<noscript> 为正常使用来必力评论功能请激活JavaScript</noscript>
-</div>
-<!-- City版安装代码已完成 -->
 
 
+
+
+    
 <div id="bottom-outer">
-  
-  <div id="bottom-inner">
-    John Doe 
-    ©2020 |Powered by  
-    <a href="http://hexo.io" target="_blank">Hexo</a> with theme 
-    <a href="https://github.com/iHongRen/legend" target="_blank">legend</a>
+    <div id="bottom-inner">
+        © 2020 <i class="fa fa-heart" id="heart"></i> 蓉城蒲菊 
+        <br>
+        Powered by 
+        <a href="http://hexo.io" target="_blank" rel="noopener">hexo</a> | Theme is <a href="https://github.com/a2396837/hexo-theme-blank/">blank</a>
+        
+    </div>  
   </div>
-    
-    
-    
-      <a href="/atom.xml">
-      
-      <img src=/images/rss.png height="18" width="18">
-      
-</div> 
+
+
+<script src="https://www.layuicdn.com/layui-v2.5.6/layui.js"></script>
 
 
   
+    <script src="/js/script.js"></script>
   
-    <script src="/js/legend.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script>
+  
+    <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.0.3/build/highlight.min.js"></script>
+  
+    <script src="https://cdn.jsdelivr.net/npm/highlightjs-line-numbers.js@2.7.0/dist/highlightjs-line-numbers.min.js"></script>
   
 
 
-</body>
-</html>
+
+  <script>
+    $("img").not('.page img').not('.nav-logo img').each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      $(this).wrap(element);
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script>
+  
+
 
 
 <script>
-$(window).on('load', function(){
-   $('pre').addClass('prettyprint').attr('style', 'overflow:auto;');
-   prettyPrint();
- });
+  var btntop = $('#gotop');
+  btntop.on('click', function (e) {
+    e.preventDefault();
+    $('html, body').animate({ scrollTop: 0 }, '300');
+  });
 </script>
 
+<script>
+  $(document).ready(function () {
+    $('code.hljs').each(function (i, block) {
+      hljs.lineNumbersBlock(block);
+    });
+  });
+</script>
+
+
+<script>
+  //reward
+  jQuery(document).ready(function () {
+    var QRBox = $('#QRBox');
+    var MainBox = $('#MainBox');
+    var AliPayQR = '/img/alipay.jpg';
+    var WeChanQR = '/img/wechat.jpg';
+  
+    function showQR(QR) {
+      if (QR) {
+        MainBox.css('background-image', 'url(' + QR + ')');
+      }
+      $('#DonateText,#donateBox,#github').addClass('blur');
+      QRBox.fadeIn(300, function (argument) {
+        MainBox.addClass('showQR');
+      });
+    }
+  
+    $('#donateBox>li').click(function (event) {
+      var thisID = $(this).attr('id');
+      if (thisID === 'AliPay') {
+        showQR(AliPayQR);
+      } else if (thisID === 'WeChat') {
+        showQR(WeChanQR);
+      }
+    });
+  
+    MainBox.click(function (event) {
+      MainBox.removeClass('showQR').addClass('hideQR');
+      setTimeout(function (a) {
+        QRBox.fadeOut(300, function (argument) {
+          MainBox.removeClass('hideQR');
+        });
+        $('#DonateText,#donateBox,#github').removeClass('blur');
+      }, 600);
+  
+    });
+  });
+  </script>
+
+
+
+
+</html>
