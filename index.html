@@ -194,6 +194,112 @@
             
 
   
+    <article id="post-URDF文件的编写" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2020/07/16/URDF%E6%96%87%E4%BB%B6%E7%9A%84%E7%BC%96%E5%86%99/" target="_blank">URDF文件的编写</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2020/07/16/URDF%E6%96%87%E4%BB%B6%E7%9A%84%E7%BC%96%E5%86%99/" class="archive-article-date">
+        <time datetime="2020-07-16T09:36:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-16</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>在ROS机器人系统中，想要制造一个机器人，就需要编写机器人描述文件。也就是URDF(Unified Robot Description Format, 统一机器人描述格式)。其使XML文件格式来描述机器人，ROS里面提供了URDF文件的C++解释器，可以解析这种格式。</p>
+<p>1.创建功能包<br><code>catkin_creage_pkg robot1_description</code></p>
+<p>2.在功能包下新建urdf文件夹，新建robot1.urdf</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot;?&gt;</span><br><span class="line">&lt;robot name&#x3D;&quot;robot1&quot;&gt;     </span><br><span class="line">    &lt;link name&#x3D;&quot;base_link&quot;&gt;</span><br><span class="line">           &lt;visual&gt;</span><br><span class="line">                 &lt;geometry&gt;</span><br><span class="line">                       &lt;box size&#x3D;&quot;0.2 .3 .1&quot;&#x2F;&gt;</span><br><span class="line">                 &lt;&#x2F;geometry&gt;</span><br><span class="line">            &lt;origin rpy&#x3D;&quot;0 0 0&quot; xyz&#x3D;&quot;0 0 0.05&quot;&#x2F;&gt;</span><br><span class="line">            &lt;material name&#x3D;&quot;white&quot;&gt;</span><br><span class="line">                &lt;color rgba&#x3D;&quot;1 1 1 1&quot;&#x2F;&gt;</span><br><span class="line">            &lt;&#x2F;material&gt;</span><br><span class="line">           &lt;&#x2F;visual&gt;     </span><br><span class="line">     &lt;&#x2F;link&gt;</span><br><span class="line"></span><br><span class="line">     &lt;link name&#x3D;&quot;wheel_1&quot;&gt;</span><br><span class="line">           &lt;visual&gt;</span><br><span class="line">                 &lt;geometry&gt;</span><br><span class="line">                       &lt;cylinder length&#x3D;&quot;0.05&quot; radius&#x3D;&quot;0.05&quot;&#x2F;&gt;</span><br><span class="line">                 &lt;&#x2F;geometry&gt;</span><br><span class="line">            &lt;origin rpy&#x3D;&quot;0 1.5 0&quot; xyz&#x3D;&quot;0.1 0.1 0&quot;&#x2F;&gt;</span><br><span class="line">               &lt;material name&#x3D;&quot;black&quot;&gt;</span><br><span class="line">                &lt;color rgba&#x3D;&quot;0 0 0 1&quot;&#x2F;&gt;</span><br><span class="line">            &lt;&#x2F;material&gt;</span><br><span class="line">        &lt;&#x2F;visual&gt;</span><br><span class="line">     &lt;&#x2F;link&gt;</span><br><span class="line"></span><br><span class="line">     &lt;link name&#x3D;&quot;wheel_2&quot;&gt;</span><br><span class="line">           &lt;visual&gt;</span><br><span class="line">                 &lt;geometry&gt;</span><br><span class="line">                       &lt;cylinder length&#x3D;&quot;0.05&quot; radius&#x3D;&quot;0.05&quot;&#x2F;&gt;</span><br><span class="line">                 &lt;&#x2F;geometry&gt;</span><br><span class="line">            &lt;origin rpy&#x3D;&quot;0 1.5 0&quot; xyz&#x3D;&quot;-0.1 0.1 0&quot;&#x2F;&gt;</span><br><span class="line">               &lt;material name&#x3D;&quot;black&quot;&#x2F;&gt;</span><br><span class="line">           &lt;&#x2F;visual&gt;</span><br><span class="line">     &lt;&#x2F;link&gt;</span><br><span class="line"></span><br><span class="line">     &lt;link name&#x3D;&quot;wheel_3&quot;&gt;</span><br><span class="line">           &lt;visual&gt;</span><br><span class="line">                 &lt;geometry&gt;</span><br><span class="line">                       &lt;cylinder length&#x3D;&quot;0.05&quot; radius&#x3D;&quot;0.05&quot;&#x2F;&gt;</span><br><span class="line">                 &lt;&#x2F;geometry&gt;</span><br><span class="line">            &lt;origin rpy&#x3D;&quot;0 1.5 0&quot; xyz&#x3D;&quot;0.1 -0.1 0&quot;&#x2F;&gt;</span><br><span class="line">               &lt;material name&#x3D;&quot;black&quot;&#x2F;&gt;</span><br><span class="line">           &lt;&#x2F;visual&gt;</span><br><span class="line">     &lt;&#x2F;link&gt;</span><br><span class="line"></span><br><span class="line">     &lt;link name&#x3D;&quot;wheel_4&quot;&gt;</span><br><span class="line">           &lt;visual&gt;</span><br><span class="line">                 &lt;geometry&gt;</span><br><span class="line">                       &lt;cylinder length&#x3D;&quot;0.05&quot; radius&#x3D;&quot;0.05&quot;&#x2F;&gt;</span><br><span class="line">                 &lt;&#x2F;geometry&gt;</span><br><span class="line">            &lt;origin rpy&#x3D;&quot;0 1.5 0&quot; xyz&#x3D;&quot;-0.1 -0.1 0&quot;&#x2F;&gt;</span><br><span class="line">               &lt;material name&#x3D;&quot;black&quot;&#x2F;&gt;</span><br><span class="line">           &lt;&#x2F;visual&gt;</span><br><span class="line">     &lt;&#x2F;link&gt;</span><br><span class="line"></span><br><span class="line">     &lt;joint name&#x3D;&quot;base_to_wheel1&quot; type&#x3D;&quot;fixed&quot;&gt;</span><br><span class="line">           &lt;parent link&#x3D;&quot;base_link&quot;&#x2F;&gt;</span><br><span class="line">           &lt;child link&#x3D;&quot;wheel_1&quot;&#x2F;&gt;</span><br><span class="line">           &lt;origin xyz&#x3D;&quot;0 0 0&quot;&#x2F;&gt;</span><br><span class="line">     &lt;&#x2F;joint&gt;</span><br><span class="line"></span><br><span class="line">     &lt;joint name&#x3D;&quot;base_to_wheel2&quot; type&#x3D;&quot;fixed&quot;&gt;</span><br><span class="line">           &lt;parent link&#x3D;&quot;base_link&quot;&#x2F;&gt;</span><br><span class="line">           &lt;child link&#x3D;&quot;wheel_2&quot;&#x2F;&gt;</span><br><span class="line">           &lt;origin xyz&#x3D;&quot;0 0 0&quot;&#x2F;&gt;</span><br><span class="line">     &lt;&#x2F;joint&gt;</span><br><span class="line"></span><br><span class="line">     &lt;joint name&#x3D;&quot;base_to_wheel3&quot; type&#x3D;&quot;fixed&quot;&gt;</span><br><span class="line">           &lt;parent link&#x3D;&quot;base_link&quot;&#x2F;&gt;</span><br><span class="line">           &lt;child link&#x3D;&quot;wheel_3&quot;&#x2F;&gt;</span><br><span class="line">           &lt;origin xyz&#x3D;&quot;0 0 0&quot;&#x2F;&gt;</span><br><span class="line">     &lt;&#x2F;joint&gt;</span><br><span class="line"></span><br><span class="line">     &lt;joint name&#x3D;&quot;base_to_wheel4&quot; type&#x3D;&quot;fixed&quot;&gt;</span><br><span class="line">           &lt;parent link&#x3D;&quot;base_link&quot;&#x2F;&gt;</span><br><span class="line">           &lt;child link&#x3D;&quot;wheel_4&quot;&#x2F;&gt;</span><br><span class="line">           &lt;origin xyz&#x3D;&quot;0 0 0&quot;&#x2F;&gt;</span><br><span class="line">     &lt;&#x2F;joint&gt;</span><br><span class="line">&lt;&#x2F;robot&gt;</span><br></pre></td></tr></table></figure>
+
+<p>这是一个最简单的机器人，由一个底盘+四个轮子组成 (这里有5个link, 对应的就有4个joint)</p>
+<p>3.在功能包下新建launch文件夹以及display.launch</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot;?&gt;</span><br><span class="line">&lt;launch&gt;</span><br><span class="line">	&lt;arg name&#x3D;&quot;model&quot; &#x2F;&gt;</span><br><span class="line">	&lt;arg name&#x3D;&quot;gui&quot; default&#x3D;&quot;False&quot; &#x2F;&gt;</span><br><span class="line">	&lt;param name&#x3D;&quot;robot_description&quot; textfile&#x3D;&quot;$(arg model)&quot; &#x2F;&gt;</span><br><span class="line">	&lt;param name&#x3D;&quot;use_gui&quot; value&#x3D;&quot;$(arg gui)&quot;&#x2F;&gt;</span><br><span class="line">	&lt;node name&#x3D;&quot;joint_state_publisher&quot; pkg&#x3D;&quot;joint_state_publisher&quot; type&#x3D;&quot;joint_state_publisher&quot; &gt;&lt;&#x2F;node&gt;</span><br><span class="line">	&lt;node name&#x3D;&quot;robot_state_publisher&quot; pkg&#x3D;&quot;robot_state_publisher&quot; type&#x3D;&quot;state_publisher&quot; &#x2F;&gt;</span><br><span class="line">	&lt;node name&#x3D;&quot;rviz&quot; pkg&#x3D;&quot;rviz&quot; type&#x3D;&quot;rviz&quot; args&#x3D;&quot;-d $(find urdf_tutorial)&#x2F;urdf.rviz&quot; &#x2F;&gt;      </span><br><span class="line">&lt;&#x2F;launch&gt;</span><br></pre></td></tr></table></figure>
+<p><font color=red>注意：这里最后这个一开始需要注释掉，因为找不到urdf_tutorial</font></p>
+<p>4.编译<br><code>catkin_make</code></p>
+<p>5.启动roslaunch<br><code>$ roslaunch robot1_description display.launch model:=&#39;</code>这里改成自己的路径/urdf/robot1.urdf’`</p>
+<ol start="6">
+<li>还需要启动rviz<br><code>rosrun rviz rviz</code></li>
+</ol>
+<p>7.打开了rviz后，里面什么都没有的<br><img src="/image/rviz1.png" alt="打开的界面就是这个样子"><br>点击左下角add,选择RobotMode</p>
+<p><img src="/image/rviz2.png" alt="选择RobotMode"></p>
+<p><img src="/image/rviz3.png" alt="打开rviz"></p>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">URDF</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ROS</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2020/07/16/URDF%E6%96%87%E4%BB%B6%E7%9A%84%E7%BC%96%E5%86%99/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-学习ros-turtle-TF坐标转换与roslaunch的编写" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1052,104 +1158,10 @@
 
 
   
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
   
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/07/13/hello-world/" target="_blank">Hello World</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/07/13/hello-world/" class="archive-article-date">
-        <time datetime="2020-07-13T02:11:02.326Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-13</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">123</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/07/13/hello-world/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+    </nav>
   
 
 
@@ -1349,6 +1361,14 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">TF坐标转换</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">URDF</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">ROS</a>
               </li>
             
             <div class="clearfix"></div>
