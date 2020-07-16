@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://github.com/image/rviz2.png">
 <meta property="og:image" content="https://github.com/image/rviz3.png">
 <meta property="article:published_time" content="2020-07-16T09:36:22.000Z">
-<meta property="article:modified_time" content="2020-07-16T11:32:05.360Z">
+<meta property="article:modified_time" content="2020-07-16T14:48:20.017Z">
 <meta property="article:author" content="蓉城蒲菊">
 <meta property="article:tag" content="URDF">
 <meta property="article:tag" content="ROS">
@@ -230,7 +230,7 @@
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">961字</span>
+      <span class="post-count">1.2k字</span>
     </span>
   </span>
 
@@ -239,7 +239,7 @@
     <span class="post-meta-item-icon">
       <i class="icon-book icon"></i>
       <span class="post-meta-item-text"> 阅读时长≈</span>
-      <span class="post-count">5分</span>
+      <span class="post-count">6分</span>
     </span>
   </span>
 </div>
@@ -267,6 +267,97 @@
 <p>7.打开了rviz后，里面什么都没有的<br><img src="/image/rviz1.png" alt="打开的界面就是这个样子"><br>点击左下角add,选择RobotMode</p>
 <p><img src="/image/rviz2.png" alt="选择RobotMode"></p>
 <p><img src="/image/rviz3.png" alt="打开rviz"></p>
+<p>补充：<br>连接(link)标签</p>
+<table>
+<thead>
+<tr>
+<th align="center">标签</th>
+<th align="center">功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">link</td>
+<td align="center">连接的可视化、碰撞和惯性属性设置</td>
+</tr>
+<tr>
+<td align="center">visual</td>
+<td align="center">设置连接的可视化属性</td>
+</tr>
+<tr>
+<td align="center">collision</td>
+<td align="center">设置连接的碰撞计算属性</td>
+</tr>
+<tr>
+<td align="center">inertial</td>
+<td align="center">设置连接的惯性属性</td>
+</tr>
+<tr>
+<td align="center">geometry</td>
+<td align="center">输入模型的形状。比如：box、cylinder、sphere等等</td>
+</tr>
+<tr>
+<td align="center">origin</td>
+<td align="center">色黄之相对于连接相对坐标系的移动和旋转</td>
+</tr>
+<tr>
+<td align="center">material</td>
+<td align="center">设置连接的颜色和纹理</td>
+</tr>
+<tr>
+<td align="center">mass</td>
+<td align="center">连接重量(单位：kg)的设置</td>
+</tr>
+</tbody></table>
+<p>关节(joint)标签</p>
+<table>
+<thead>
+<tr>
+<th align="center">标签</th>
+<th align="center">功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">joint</td>
+<td align="center">与连接的关系和关节类型的设置</td>
+</tr>
+<tr>
+<td align="center">parent</td>
+<td align="center">关节的父连接</td>
+</tr>
+<tr>
+<td align="center">child</td>
+<td align="center">关节的子连接</td>
+</tr>
+<tr>
+<td align="center">origin</td>
+<td align="center">将父连接坐标系转换为子连接坐标系</td>
+</tr>
+<tr>
+<td align="center">axis</td>
+<td align="center">设置旋转轴</td>
+</tr>
+<tr>
+<td align="center">limit</td>
+<td align="center">设置关节的速度、力和半径</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>表头</th>
+<th>表头</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>单元格</td>
+<td>单元格</td>
+</tr>
+<tr>
+<td>单元格</td>
+<td>单元格</td>
+</tr>
+</tbody></table>
+<p>参考链接：<a href="https://www.cnblogs.com/linuxAndMcu/p/10874789.html" target="_blank" rel="noopener">https://www.cnblogs.com/linuxAndMcu/p/10874789.html</a></p>
 
     
 
