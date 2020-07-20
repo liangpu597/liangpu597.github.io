@@ -17,6 +17,8 @@
 <meta property="og:site_name" content="蒲菊的博客">
 <meta property="og:description" content="在ROS机器人系统中，想要制造一个机器人，就需要编写机器人描述文件。也就是URDF(Unified Robot Description Format, 统一机器人描述格式)。其使XML文件格式来描述机器人，ROS里面提供了URDF文件的C++解释器，可以解析这种格式。">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://github.com/image/Tiffile.png">
+<meta property="og:image" content="https://github.com/image/moviet.png">
 <meta property="og:image" content="https://github.com/image/rviz1.png">
 <meta property="og:image" content="https://github.com/image/rviz2.png">
 <meta property="og:image" content="https://github.com/image/rviz3.png">
@@ -27,12 +29,12 @@
 <meta property="og:image" content="https://github.com/image/link_origin_2.png">
 <meta property="og:image" content="https://github.com/image/link_origin_3.png">
 <meta property="article:published_time" content="2020-07-16T09:36:22.000Z">
-<meta property="article:modified_time" content="2020-07-17T10:08:49.541Z">
+<meta property="article:modified_time" content="2020-07-20T03:40:08.620Z">
 <meta property="article:author" content="蓉城蒲菊">
 <meta property="article:tag" content="URDF">
 <meta property="article:tag" content="ROS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://github.com/image/rviz1.png">
+<meta name="twitter:image" content="https://github.com/image/Tiffile.png">
   
     <link rel="alternative" href="/atom.xml" title="蒲菊的博客" type="application/atom+xml">
   
@@ -236,7 +238,7 @@
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">1.6k字</span>
+      <span class="post-count">2k字</span>
     </span>
   </span>
 
@@ -245,7 +247,7 @@
     <span class="post-meta-item-icon">
       <i class="icon-book icon"></i>
       <span class="post-meta-item-text"> 阅读时长≈</span>
-      <span class="post-count">7分</span>
+      <span class="post-count">9分</span>
     </span>
   </span>
 </div>
@@ -265,12 +267,28 @@
 <p>这是一个最简单的机器人，由一个底盘+四个轮子组成 (这里有5个link, 对应的就有4个joint)</p>
 <p>3.在功能包下新建launch文件夹以及display.launch</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot;?&gt;</span><br><span class="line">&lt;launch&gt;</span><br><span class="line">	&lt;arg name&#x3D;&quot;model&quot; &#x2F;&gt;</span><br><span class="line">	&lt;arg name&#x3D;&quot;gui&quot; default&#x3D;&quot;False&quot; &#x2F;&gt;</span><br><span class="line">	&lt;param name&#x3D;&quot;robot_description&quot; textfile&#x3D;&quot;$(arg model)&quot; &#x2F;&gt;</span><br><span class="line">	&lt;param name&#x3D;&quot;use_gui&quot; value&#x3D;&quot;$(arg gui)&quot;&#x2F;&gt;</span><br><span class="line">	&lt;node name&#x3D;&quot;joint_state_publisher&quot; pkg&#x3D;&quot;joint_state_publisher&quot; type&#x3D;&quot;joint_state_publisher&quot; &gt;&lt;&#x2F;node&gt;</span><br><span class="line">	&lt;node name&#x3D;&quot;robot_state_publisher&quot; pkg&#x3D;&quot;robot_state_publisher&quot; type&#x3D;&quot;state_publisher&quot; &#x2F;&gt;</span><br><span class="line">	&lt;node name&#x3D;&quot;rviz&quot; pkg&#x3D;&quot;rviz&quot; type&#x3D;&quot;rviz&quot; args&#x3D;&quot;-d $(find urdf_tutorial)&#x2F;urdf.rviz&quot; &#x2F;&gt;      </span><br><span class="line">&lt;&#x2F;launch&gt;</span><br></pre></td></tr></table></figure>
-<p><font color=red>注意：这里最后这个一开始需要注释掉，因为找不到urdf_tutorial</font></p>
+
+<p>其中：</p>
+<blockquote>
+<arg name="gui" default="False" />
+是设置GUI参数，显示关节控制插件
+<param name="robot_description" textfile="$(arg model)" /> 
+这个好像也是必须的
+<node name="joint_state_publisher" pkg="joint_state_publisher" >type="joint_state_publisher" ></node>
+运行joint_state_publisher节点，发布机器人关节状态
+<node name="robot_state_publisher" >
+运行robot_state_publisher节点，发布TF将机器人各个link,joint之间的关系通过TF的形式整理成三维姿态信息发布出去
+<node name="rviz" pkg="rviz" type="rviz" args="-d $(find urdf_tutorial)/urdf.rviz" />
+运行rviz可视化界面
+</blockquote>
+<p><font color=red>注意：这里最后这个一开始需要注释掉，因为找不到urdf_tutorial<br>更正： 查询发现，这个urdf_tutorial是一个功能包，需要额外安装。这里我们没有安装，使用:rospack list 查询发现：没有这个东西<br>安装方式： sudo apt-get install ros-kinetic-urdf-tutorial<br>安装完成后再次查询，就可以找到这个包了，这样添加进去就不会报错了。<br>会安装到/opt/ros/kinetic/share/urdf_tutorial</p>
+<p>在本教程中的，后面添加机械臂那里，<mesh filename="package://pr2_description/meshes/gripper_v0/1_finger.dae"/><br>这里也是，pr2_description也是一个ros包，需要额外安装,安装命令：<br>sudo apt-get install-pr2-description 这样就不会报错了<br>但是打开，终端会一直出现:<br><img src="/image/Tiffile.png" width="600px" height="500px" ></p>
+<p>但是，出现的界面是对的：<br><img src="/image/moviet.png" width="600px" height="500px" ><br></font></p>
 <p>4.编译<br><code>catkin_make</code></p>
-<p>5.启动roslaunch<br><code>$ roslaunch robot1_description display.launch model:=&#39;</code>这里改成自己的路径/urdf/robot1.urdf’</p>
+<p>5.启动roslaunch<br><code>$ roslaunch robot1_description display.launch model:=&#39;</code>这里改成自己的路路径/urdf/robot1.urdf’<br><font color=yellow>把文件拖到终端里面就可以显示文件位置信息了</font></p>
 <p>或者可以在launch 文件下： <code>roslaunch  display.launch model:=&#39;</code>这里改成自己的路径/urdf/robot1.urdf’ 也就是说，不加功能包的名字，也是可以进行启动的。</p>
 <ol start="6">
-<li>还需要启动rviz<br><code>rosrun rviz rviz</code></li>
+<li>在rviz中进行显示，启动rviz<br><code>rosrun rviz rviz</code></li>
 </ol>
 <p>7.打开了rviz后，里面什么都没有的<br><img src="/image/rviz1.png" alt="打开的界面就是这个样子"><br>点击左下角add,选择RobotMode</p>
 <p><img src="/image/rviz2.png" alt="选择RobotMode"></p>
@@ -367,9 +385,15 @@
 <p>再更改joint为<br><code>&lt;origin xyz=&quot;0.5 0 0 &quot;&gt;</code></p>
 <p>link的位置还是上一步的位置，自身坐标系变了</p>
 <img src="/image/link_origin_3.png" width="600px" height="500px">
+<br></br>
 
 
+<font color=green>
 
+<p>关节类型</p>
+<blockquote>
+<p>fixed:固定关节，不允许运动<br>continuous: 转动关节，可以绕单轴无限旋转<br>revolute: 旋转关节，类似于continuous 但是旋转角度有限<br>prismatic:滑动关节，沿某一轴线移动的关节，带有位置极限<br>floating: 浮动关节，允许进行平移、旋转运动<br>planar: 平面关节，允许在平面正交方向上平移或者旋转<br></font></p>
+</blockquote>
 <p>参考链接：</p>
 <ol>
 <li><a href="https://www.cnblogs.com/linuxAndMcu/p/10874789.html" target="_blank" rel="noopener">创建urdf文件并在rviz中擦查看模型</a></li>
@@ -797,6 +821,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SDF</a>
               </li>
             
             <div class="clearfix"></div>

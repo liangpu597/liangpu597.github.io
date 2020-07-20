@@ -194,6 +194,257 @@
             
 
   
+    <article id="post-PX4-Gazebo-Ros中的launch文件编写" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2020/07/20/PX4-Gazebo-Ros%E4%B8%AD%E7%9A%84launch%E6%96%87%E4%BB%B6%E7%BC%96%E5%86%99/" target="_blank">PX4-Gazebo-Ros中的launch文件编写</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2020/07/20/PX4-Gazebo-Ros%E4%B8%AD%E7%9A%84launch%E6%96%87%E4%BB%B6%E7%BC%96%E5%86%99/" class="archive-article-date">
+        <time datetime="2020-07-20T09:10:10.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-20</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>参考链接：</p>
+<ol>
+<li><a href="https://blog.csdn.net/brawly/article/details/106435104#212_linkgazebo_85" target="_blank" rel="noopener">https://blog.csdn.net/brawly/article/details/106435104#212_linkgazebo_85</a></li>
+<li><a href="https://www.jianshu.com/p/63a959bfbb96" target="_blank" rel="noopener">https://www.jianshu.com/p/63a959bfbb96</a></li>
+<li><a href="https://blog.csdn.net/qq_33444963/article/details/77893881#t6" target="_blank" rel="noopener">https://blog.csdn.net/qq_33444963/article/details/77893881#t6</a></li>
+</ol>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2020/07/20/PX4-Gazebo-Ros%E4%B8%AD%E7%9A%84launch%E6%96%87%E4%BB%B6%E7%BC%96%E5%86%99/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-URDF格式的升级版SDF" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2020/07/20/URDF%E6%A0%BC%E5%BC%8F%E7%9A%84%E5%8D%87%E7%BA%A7%E7%89%88SDF/" target="_blank">URDF格式的升级版SDF</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2020/07/20/URDF%E6%A0%BC%E5%BC%8F%E7%9A%84%E5%8D%87%E7%BA%A7%E7%89%88SDF/" class="archive-article-date">
+        <time datetime="2020-07-20T07:23:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-20</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>在前面的教程:URDF文件的编写中，我们知道一般机器人描述文件是URDF，通过写URDF文件来描述一个机器人，现在，这里有更高级的了。SDF。 SDF和URDF多是基于XML格式的机器人描述，区别在于：</p>
+<blockquote>
+<p>URDF只能描述单个机器人的运动和动态属性,而无法描述环境信息<br>SDF格式是可以同时描述机器人和环境</p>
+</blockquote>
+<p>查看代码，发现，以sdf为格式的xml文件一般写在.world或者.sdf文件下。<br>比如：本项目中的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;arg name&#x3D;&quot;world&quot; default&#x3D;&quot;$(find mavlink_sitl_gazebo)&#x2F;worlds&#x2F;outdoor1.world&quot;&#x2F;&gt;</span><br><span class="line">    </span><br><span class="line">&lt;arg name&#x3D;&quot;sdf&quot; default&#x3D;&quot;$(find mavlink_sitl_gazebo)&#x2F;models&#x2F;iris_stereo_camera&#x2F;iris_stereo_camera.sdf&quot;&#x2F;&gt;</span><br></pre></td></tr></table></figure>
+<p>这两个都是写在outdoor1.launch文件里面<br>接着看outdoor1.launch：</p>
+<p>参考链接：<br>1.<a href="https://zhuanlan.zhihu.com/p/67470858" target="_blank" rel="noopener">SDF机器人描述格式解析</a></p>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">URDF</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">SDF</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2020/07/20/URDF%E6%A0%BC%E5%BC%8F%E7%9A%84%E5%8D%87%E7%BA%A7%E7%89%88SDF/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-ubuntu外接音箱时没有声音" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2020/07/17/ubuntu%E5%A4%96%E6%8E%A5%E9%9F%B3%E7%AE%B1%E6%97%B6%E6%B2%A1%E6%9C%89%E5%A3%B0%E9%9F%B3/" target="_blank">ubuntu外接音箱时没有声音</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2020/07/17/ubuntu%E5%A4%96%E6%8E%A5%E9%9F%B3%E7%AE%B1%E6%97%B6%E6%B2%A1%E6%9C%89%E5%A3%B0%E9%9F%B3/" class="archive-article-date">
+        <time datetime="2020-07-17T10:31:13.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-17</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2020/07/17/ubuntu%E5%A4%96%E6%8E%A5%E9%9F%B3%E7%AE%B1%E6%97%B6%E6%B2%A1%E6%9C%89%E5%A3%B0%E9%9F%B3/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-linux-ubuntu16-04相关学习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -848,293 +1099,6 @@
 
 
   
-    <article id="post-使用system备份ubuntu生成iso镜像" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/07/13/%E4%BD%BF%E7%94%A8system%E5%A4%87%E4%BB%BDubuntu%E7%94%9F%E6%88%90iso%E9%95%9C%E5%83%8F/" target="_blank">使用system备份ubuntu生成iso镜像</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/07/13/%E4%BD%BF%E7%94%A8system%E5%A4%87%E4%BB%BDubuntu%E7%94%9F%E6%88%90iso%E9%95%9C%E5%83%8F/" class="archive-article-date">
-        <time datetime="2020-07-13T12:40:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-13</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>本地环境： ubuntu16.04<br>1 安装Systemback</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update</span><br><span class="line">sudo add-apt-repository ppa:nemh&#x2F;systemback</span><br><span class="line">sudo apt-get update &amp;&amp; sudo apt-get install systemback unionfs-fuse</span><br></pre></td></tr></table></figure>
-    
-    <a class="article-more-a" href="/2020/07/13/%E4%BD%BF%E7%94%A8system%E5%A4%87%E4%BB%BDubuntu%E7%94%9F%E6%88%90iso%E9%95%9C%E5%83%8F/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ubuntu</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">备份</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iso</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/07/13/%E4%BD%BF%E7%94%A8system%E5%A4%87%E4%BB%BDubuntu%E7%94%9F%E6%88%90iso%E9%95%9C%E5%83%8F/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hexo以及markdown常见语法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/07/13/hexo%E4%BB%A5%E5%8F%8Amarkdown%E5%B8%B8%E8%A7%81%E8%AF%AD%E6%B3%95/" target="_blank">hexo以及markdown常见语法</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/07/13/hexo%E4%BB%A5%E5%8F%8Amarkdown%E5%B8%B8%E8%A7%81%E8%AF%AD%E6%B3%95/" class="archive-article-date">
-        <time datetime="2020-07-13T12:29:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-13</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h1 id="hexo"><a href="#hexo" class="headerlink" title="hexo"></a>hexo</h1><p><code>hexo g</code> 生成<br><code>hexo s</code> 预览</p>
-<p>定义多个标签<br><code>tags: [,,,]</code></p>
-    
-    <a class="article-more-a" href="/2020/07/13/hexo%E4%BB%A5%E5%8F%8Amarkdown%E5%B8%B8%E8%A7%81%E8%AF%AD%E6%B3%95/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">markdown</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/07/13/hexo%E4%BB%A5%E5%8F%8Amarkdown%E5%B8%B8%E8%A7%81%E8%AF%AD%E6%B3%95/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-windows下通过hexo搭建github博客-无域名" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/07/13/windows%E4%B8%8B%E9%80%9A%E8%BF%87hexo%E6%90%AD%E5%BB%BAgithub%E5%8D%9A%E5%AE%A2-%E6%97%A0%E5%9F%9F%E5%90%8D/" target="_blank">windows下通过hexo搭建github博客(无域名)</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/07/13/windows%E4%B8%8B%E9%80%9A%E8%BF%87hexo%E6%90%AD%E5%BB%BAgithub%E5%8D%9A%E5%AE%A2-%E6%97%A0%E5%9F%9F%E5%90%8D/" class="archive-article-date">
-        <time datetime="2020-07-13T11:57:37.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-13</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <h1 id="1-安装git和node-js"><a href="#1-安装git和node-js" class="headerlink" title="1.安装git和node.js"></a>1.安装<a href="https://git-scm.com/download/win" target="_blank" rel="noopener">git</a>和<a href="https://git-scm.com/" target="_blank" rel="noopener">node.js</a></h1><h1 id="2-配置-ssh-keys"><a href="#2-配置-ssh-keys" class="headerlink" title="2.配置 ssh keys"></a>2.配置 ssh keys</h1><h2 id="1-检查电脑是否有key"><a href="#1-检查电脑是否有key" class="headerlink" title="(1)检查电脑是否有key"></a>(1)检查电脑是否有key</h2><p><code>$ cd ~/.ssh</code><br>如果显示”no such file”，则说明没有</p>
-<h2 id="2-生成新的ssh-key"><a href="#2-生成新的ssh-key" class="headerlink" title="(2)生成新的ssh key"></a>(2)生成新的ssh key</h2><p><code>$ ssh-keygen -t rsa -C &quot;邮件地址@youremail.com&quot;</code><br>一路回车</p>
-    
-    <a class="article-more-a" href="/2020/07/13/windows%E4%B8%8B%E9%80%9A%E8%BF%87hexo%E6%90%AD%E5%BB%BAgithub%E5%8D%9A%E5%AE%A2-%E6%97%A0%E5%9F%9F%E5%90%8D/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">github</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">windows</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/07/13/windows%E4%B8%8B%E9%80%9A%E8%BF%87hexo%E6%90%AD%E5%BB%BAgithub%E5%8D%9A%E5%AE%A2-%E6%97%A0%E5%9F%9F%E5%90%8D/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
@@ -1350,6 +1314,10 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">linux</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SDF</a>
               </li>
             
             <div class="clearfix"></div>
