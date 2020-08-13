@@ -194,6 +194,295 @@
             
 
   
+    <article id="post-QT学习之滚动字幕" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2020/08/13/QT%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%BB%9A%E5%8A%A8%E5%AD%97%E5%B9%95/" target="_blank">QT学习之滚动字幕</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2020/08/13/QT%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%BB%9A%E5%8A%A8%E5%AD%97%E5%B9%95/" class="archive-article-date">
+        <time datetime="2020-08-13T09:16:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-13</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>在设计Qt的时候，有时候想要滚动文本框之内的。而常见的QLabel里面没有这个，需要我们重写后，然后把这个QLabel直接进行提升就行了。<br>1.首先新建一个QWidget的工程，继承QWidget<br>2.sources下新建C++ class  起好名字，会有一个同名的.h 和.cpp文件 这里我取得是roll 那么这个类的名字就叫做roll</p>
+<p>roll.h</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">#ifndef ROLL_H</span><br><span class="line">#define ROLL_H</span><br><span class="line"></span><br><span class="line">#include&lt;QtWidgets&#x2F;QLabel&gt;</span><br><span class="line"></span><br><span class="line">class roll: public QLabel</span><br><span class="line">&#123;</span><br><span class="line">    Q_OBJECT</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line">    roll(QWidget *parent &#x3D; nullptr);          </span><br><span class="line">    ~roll();</span><br><span class="line"></span><br><span class="line">protected:</span><br><span class="line">    void paintEvent(QPaintEvent *);</span><br><span class="line">    void updateIndex();</span><br><span class="line"></span><br><span class="line">private:</span><br><span class="line">    int m_charWidth;</span><br><span class="line">    int m_curIndex;</span><br><span class="line">    QString m_showText;</span><br><span class="line"></span><br><span class="line">public:</span><br><span class="line">    QString getText()</span><br><span class="line">    &#123;</span><br><span class="line">        return m_showText;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">#endif &#x2F;&#x2F; ROLL_H</span><br></pre></td></tr></table></figure>
+
+
+<p>roll.cpp</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line">#include &quot;roll.h&quot;</span><br><span class="line">#include&lt;QPainter&gt;</span><br><span class="line">#include&lt;QTimer&gt;</span><br><span class="line">#include&lt;QDebug&gt;</span><br><span class="line"></span><br><span class="line">roll::roll(QWidget *parent): QLabel(parent)    &#x2F;&#x2F;按照网上的教程 是说roll继承了QLabel那么就需要在初始化的时候给QLabel也传递参数过去</span><br><span class="line">&#123;                                               &#x2F;&#x2F;传递的参数是在自己的构造函数里就要写好：QWidget *parent &#x3D; nullptr</span><br><span class="line">                                                &#x2F;&#x2F;把这个参数 传递给QLabel 的parent变量 在C++中，父类初始化的时候只能这样来</span><br><span class="line"></span><br><span class="line">    m_curIndex &#x3D;0;          &#x2F;&#x2F;当前文字下标值</span><br><span class="line">    &#x2F;&#x2F;m_showText&#x3D;tr(&quot;This is a textTicker Text!&quot;);</span><br><span class="line">    &#x2F;&#x2F;m_showText &#x3D; tr(&quot;在文本框中输入内容后 勾选选项 自动更改文本框内容样式&quot;);</span><br><span class="line">    m_showText &#x3D; QString(&quot;在一般情况下子类继承了父类那么子类就可以对父类的方法进行调用甚至是重写这样子类对象就继承了父类对象&quot;);</span><br><span class="line">    m_charWidth &#x3D; fontMetrics().width(&quot;在&quot;);   &#x2F;&#x2F;获取到一个字符的宽度</span><br><span class="line">    qDebug()&lt;&lt;fontMetrics().width(&quot;ad&quot;)&lt;&lt;endl;    &#x2F;&#x2F;这样打印出来是6 如果是 汉字的话就是12</span><br><span class="line">    &#x2F;&#x2F;Qtimer的常规做法 start(100)是每隔1毫秒调用roll::updateIndex一次, 改变这个可以显著改变移动的速度</span><br><span class="line">    QTimer *timer &#x3D; new QTimer(this);</span><br><span class="line">    connect(timer, &amp;QTimer::timeout, this, &amp;roll::updateIndex);</span><br><span class="line">    timer-&gt;start(100);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">roll::~roll()</span><br><span class="line">&#123;&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;paintEvent 是QWidget中的虚函数 用于画图 现在把它重写</span><br><span class="line">void roll::paintEvent(QPaintEvent *)</span><br><span class="line">&#123;</span><br><span class="line">    QPen pen;            &#x2F;&#x2F;QPen类，定义了一个QPainter应该如何画线和图形的轮廓 详细的参见博客</span><br><span class="line">    pen.setColor(QColor(255,0,255));    &#x2F;&#x2F;设置线条的颜色</span><br><span class="line">    pen.setStyle(Qt::DashDotDotLine);    &#x2F;&#x2F;一个短线，两个点，一个短线，两个点</span><br><span class="line"></span><br><span class="line">    QPainter painter(this);</span><br><span class="line">    painter.setPen(pen);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    QFont font(&quot;楷体&quot;,14,QFont::Bold);</span><br><span class="line">    painter.setFont(font);</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;painter 可以绘制 点 直线 矩形 圆形 椭圆 扇形 文本 这里是文本</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;查阅官方的发现使用的是这个重载drawText(int x, int y, const QString &amp;text)</span><br><span class="line">    &#x2F;&#x2F;这个是从x y的位置上开始绘画文本 但是这里搞不懂 这个位置如果是全局位置的话， 那么就跟后面的label的位置没有关系了</span><br><span class="line">    &#x2F;&#x2F;可是它还是会一直在label里面 不会超出这个label</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;painter.drawText(rect(),Qt::AlignCenter,m_showText.mid(m_curIndex));    &#x2F;&#x2F;比如这个本来是在屏幕正中央来的，但是这里好像还是在label内</span><br><span class="line">    &#x2F;&#x2F;painter.drawText(0,25,m_showText.mid(m_curIndex));</span><br><span class="line">    &#x2F;&#x2F;这个mid函数就是一个截取函数mid(start, num)从字符串start下标开始，截取num个字符。num默认是-1表示从start后一直到末尾 不改变原字符</span><br><span class="line">    &#x2F;&#x2F;还有个函数replace(),这个改变原字符</span><br><span class="line">    &#x2F;&#x2F;qDebug()&lt;&lt;m_showText.mid(m_curIndex)&lt;&lt;endl;   &#x2F;&#x2F;这里是全部打印，印证了上面的猜测,然后我们需要更新</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;然后我们需要更新，让其滚动的效果，也就是说，每次的索引增加，这样，相当于前面的不打印，造成一种滚动的假象</span><br><span class="line">    &#x2F;&#x2F;painter.drawText(width() - m_charWidth * m_curIndex, 15, m_showText.left(m_curIndex));</span><br><span class="line">    &#x2F;&#x2F;qDebug()&lt;&lt;width()&lt;&lt;endl; 打印451，也就是label的宽度</span><br><span class="line">    &#x2F;&#x2F;QString.left(n) 从左开始第n个</span><br><span class="line">    &#x2F;&#x2F;painter.drawText(103, 25, m_showText.left(29));</span><br><span class="line"></span><br><span class="line">    painter.drawText(width()-(m_charWidth+12) * m_curIndex, 25, m_showText.left(m_curIndex));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;qDebug()&lt;&lt;m_curIndex&lt;&lt;&quot;: 此时的值是：&quot;&lt;&lt;width()- m_charWidth * m_curIndex &lt;&lt;endl;</span><br><span class="line">    &#x2F;&#x2F;QString sg &#x3D; &quot;我 在&quot;;</span><br><span class="line">    &#x2F;&#x2F;qDebug()&lt;&lt;fontMetrics().width(sg)&lt;&lt;endl;</span><br><span class="line">    qDebug()&lt;&lt;m_curIndex&lt;&lt;endl;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">void roll::updateIndex()</span><br><span class="line">&#123;</span><br><span class="line">    update();</span><br><span class="line">    m_curIndex++;</span><br><span class="line">    if(m_curIndex&gt;52)</span><br><span class="line">    &#123;</span><br><span class="line">        m_curIndex &#x3D;0;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;*</span><br><span class="line">    if(m_curIndex* m_charWidth &gt; width())</span><br><span class="line">    &#123;</span><br><span class="line">        flag &#x3D;1;</span><br><span class="line">    &#125;</span><br><span class="line">    *&#x2F;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注：网上的版本是： update-&gt; : if m_curIndex * m_charwidth &gt; width<br>发现不能显示完全文字，原因是，虽然计算出了一个文字所占的像素，但是，文字与文字之间还存在间隔，间隔也要算。经过计算，一个文字的像素是12 一个空格的也是12 所以这里用的是24 这样的话， 会很快超出这个边框的边界，但是此时，文字还是没有显示完全。</p>
+</blockquote>
+<p>解决办法：在文本框边缘外部还是显示，只是用户看不到了罢了。这样可以显示完全了。<br>但是好像还是有问题，就是到后面，感觉尾巴一直在缩短的感觉，这个原因目前不知道怎么解决？</p>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Qt</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">字幕滚动</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2020/08/13/QT%E5%AD%A6%E4%B9%A0%E4%B9%8B%E6%BB%9A%E5%8A%A8%E5%AD%97%E5%B9%95/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-C-之虚函数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2020/08/13/C-%E4%B9%8B%E8%99%9A%E5%87%BD%E6%95%B0/" target="_blank">C++之虚函数</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2020/08/13/C-%E4%B9%8B%E8%99%9A%E5%87%BD%E6%95%B0/" class="archive-article-date">
+        <time datetime="2020-08-13T01:59:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-13</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>在一般情况下，子类继承了父类，那么子类就可以对父类的方法进行调用甚至是重写，这样子类对象就继承了父类对象。<br>但是，有一种情况，比如说，父类对象想要调用子类对象的某一个成员或者方法的时候。就不能了。<br>这个时候就需要使用虚函数(virtual )： 在父类对象声明的时候在函数的前面，显示的增加关键词virtual，这样，子类可以对其重写。<br>并且，当一个父类对象的指针对象指向子类的时候，这个时候根据情况，调用的是子类的对象方法。而不是父类自己的，这样就实现了多态，以及父类可以调用子类方法了.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">class A</span><br><span class="line">&#123;</span><br><span class="line">    public :</span><br><span class="line">        virtual void foo()</span><br><span class="line">        &#123;cout&lt;&lt; &quot;A foo() is called&quot;&lt;&lt;endl;&#125;</span><br><span class="line">&#125;;</span><br><span class="line">class B: public A</span><br><span class="line">&#123;</span><br><span class="line">    public:</span><br><span class="line">        void foo()</span><br><span class="line">        &#123;cout&lt;&lt;&quot;B foo() is called&quot;&lt;&lt;endl;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">int mian()</span><br><span class="line">&#123;</span><br><span class="line">    A *a &#x3D; new B();</span><br><span class="line">    a-&gt;foo();</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这里面的 A *a = new B(); 就是一个父类对象指向了子类。如： A是树，B是苹果树， A既然指向了苹果树，肯定也指向了树。所以A兼容了树和苹果树的多重特性</p>
+</blockquote>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">C++</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">虚函数</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2020/08/13/C-%E4%B9%8B%E8%99%9A%E5%87%BD%E6%95%B0/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-QT5-9学习" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+  
+  
+    <h1 itemprop="name">
+	
+	  <a class="article-title" href="/2020/08/12/QT5-9%E5%AD%A6%E4%B9%A0/" target="_blank">QT5.9学习</a>
+  
+    </h1>
+  
+
+
+  
+  
+<a href="/2020/08/12/QT5-9%E5%AD%A6%E4%B9%A0/" class="archive-article-date">
+        <time datetime="2020-08-12T02:38:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-08-12</time>
+</a>
+
+  
+  
+    
+
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    
+    <p>QT Widgets Application:  应用程序<br>Qt Console Application:  终端程序<br>Qt Quick Application： 移动端</p>
+<p>QMainWindow 是主窗口类，主窗口具有主菜单栏、工具栏和状态栏，类似于一般的应用程序的主窗口；<br>QWidget 是所有具有可视界面类的基类，选择 QWidget 创建的界面对各种界面组件都可以 支持； (也就是说任何窗口的gui都通用，上面的那个一般用作程序的主窗口)<br>QDialog 是对话框类，可建立一个基于对话框的界面</p>
+<p>QLabel 的继承关系是: QObject→QWidget→QFrame→QLabel</p>
+<p>对一个控件更改其objectName后，原来写的信号与槽那个就不能使用了，需要新写.</p>
+<p>信号与槽：<br>信号signal：特定时候特定情况下被发射的事件<br>槽 slot: 信号响应函数<br>1.一个信号可以连接多个槽<br>2.多个信号可以连接同一个槽<br>3.一个信号可以连接另外一个信号</p>
+<p>4.信号与槽的参数应该一致<br>5.当一个信号被发射时，与其相关联的槽函数通常被立即执行。只有当槽函数执行完毕后，才会执行信号后面的代码</p>
+<p>画图：<br>QPen类： 定义了一个QPainter应该如何画线和图形的轮廓<br>一个QPen的属性有五种： 线的格式， 线的宽度， 线的颜色，线的端点样式，以及线与线之间的链接方式.</p>
+<p>关于绘制文本：<br>参考链接：<a href="https://blog.csdn.net/naibozhuan3744/article/details/79068528" target="_blank" rel="noopener">https://blog.csdn.net/naibozhuan3744/article/details/79068528</a>   (这里面没有讲drawText()这个函数里面的参数意义)</p>
+<p>QT中的坐标：<br>左上角是(0,0) 对一个label来说，中的x,y是其左上角的那个点的位置坐标。</p>
+<p>QT中截取，代替字符串： mid, replace 参考： <a href="https://blog.csdn.net/can3981132/article/details/94176849" target="_blank" rel="noopener">https://blog.csdn.net/can3981132/article/details/94176849</a></p>
+
+    
+
+    
+
+    
+
+  </div>
+  <div class="article-info article-info-index">
+    
+    
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">QT5.9</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+    
+
+    
+    <p class="article-more-link">
+      <a class="article-more-a" href="/2020/08/12/QT5-9%E5%AD%A6%E4%B9%A0/">展开全文 >></a>
+    </p>
+    
+
+    
+    <div class="clearfix"></div>
+  </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-多旋翼飞行器设计与控制学习—-1-基本概念" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -812,288 +1101,9 @@
 
 
   
-    <article id="post-URDF文件的编写" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/07/16/URDF%E6%96%87%E4%BB%B6%E7%9A%84%E7%BC%96%E5%86%99/" target="_blank">URDF文件的编写</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/07/16/URDF%E6%96%87%E4%BB%B6%E7%9A%84%E7%BC%96%E5%86%99/" class="archive-article-date">
-        <time datetime="2020-07-16T09:36:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-16</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>在ROS机器人系统中，想要制造一个机器人，就需要编写机器人描述文件。也就是URDF(Unified Robot Description Format, 统一机器人描述格式)。其使XML文件格式来描述机器人，ROS里面提供了URDF文件的C++解释器，可以解析这种格式。</p>
-    
-    <a class="article-more-a" href="/2020/07/16/URDF%E6%96%87%E4%BB%B6%E7%9A%84%E7%BC%96%E5%86%99/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">URDF</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ROS</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/07/16/URDF%E6%96%87%E4%BB%B6%E7%9A%84%E7%BC%96%E5%86%99/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-学习ros-turtle-TF坐标转换与roslaunch的编写" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/07/15/%E5%AD%A6%E4%B9%A0ros-turtle-TF%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2%E4%B8%8Eroslaunch%E7%9A%84%E7%BC%96%E5%86%99/" target="_blank">学习ros-turtle-TF坐标转换与roslaunch的编写</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/07/15/%E5%AD%A6%E4%B9%A0ros-turtle-TF%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2%E4%B8%8Eroslaunch%E7%9A%84%E7%BC%96%E5%86%99/" class="archive-article-date">
-        <time datetime="2020-07-15T13:33:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-15</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>在机器人系统中，我们经常会遇到坐标变换相关的问题。比如说，在一个导航系统中，我们通过激光雷达、双目摄像头等传感器对周围环境进行感知，但是这些传感器直接采集的数据是相对于传感器而言的， 而传感器在机器人身上的安装位置又各不相同，我们关心的则是外部环境与机器人本体之间的关系，所以还需要把相对于传感器的数据变换成为相对于机器人的数据。这个过程就是所谓的坐标变换。</p>
-<p>如果涉及到多个机器人之间的协同工作，则需要维护两两之间的相对位置关系，在机器人很多的情况下，或者说是自由度很多的情况下，这种坐标系之间的变换关系就相对比较复杂。 ROS系统提供了一个叫做tf的坐标变换库，这个库使得我们能够在各种坐标系之间自由地切换。</p>
-<p>在ROS中有一个turtle的例子，一个通过键盘控制turtle1跑，另外一个turtle2跟在turtle1后面，跟随其坐标进行跟踪。</p>
-    
-    <a class="article-more-a" href="/2020/07/15/%E5%AD%A6%E4%B9%A0ros-turtle-TF%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2%E4%B8%8Eroslaunch%E7%9A%84%E7%BC%96%E5%86%99/#more">more >></a>
-    
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">ros</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">TF坐标转换</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/07/15/%E5%AD%A6%E4%B9%A0ros-turtle-TF%E5%9D%90%E6%A0%87%E8%BD%AC%E6%8D%A2%E4%B8%8Eroslaunch%E7%9A%84%E7%BC%96%E5%86%99/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-ubuntu16-04升级vscode" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-  
-  
-    <h1 itemprop="name">
-	
-	  <a class="article-title" href="/2020/07/14/ubuntu16-04%E5%8D%87%E7%BA%A7vscode/" target="_blank">ubuntu16.04升级vscode</a>
-  
-    </h1>
-  
-
-
-  
-  
-<a href="/2020/07/14/ubuntu16-04%E5%8D%87%E7%BA%A7vscode/" class="archive-article-date">
-        <time datetime="2020-07-14T07:53:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-14</time>
-</a>
-
-  
-  
-    
-
-  
-  </header>
-  
-  <div class="article-entry" itemprop="articleBody">
-    
-    <p>ubuntu不同于windows，无法直接使用软件升级。<br>可以使用命令行来升级vscode</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https:&#x2F;&#x2F;vscode-update.azurewebsites.net&#x2F;latest&#x2F;linux-deb-x64&#x2F;stable -O &#x2F;tmp&#x2F;code_latest_amd64.deb</span><br><span class="line"></span><br><span class="line">sudo dpkg -i &#x2F;tmp&#x2F;code_latest_amd64.deb</span><br></pre></td></tr></table></figure>
-
-<p>本命令会将.deb文件包下载到 /tmp目录下。安装完成后，可以进入该目录进行删除</p>
-
-    
-
-    
-
-    
-
-  </div>
-  <div class="article-info article-info-index">
-    
-    
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">ubuntu</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">vscode</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-    
-
-    
-    <p class="article-more-link">
-      <a class="article-more-a" href="/2020/07/14/ubuntu16-04%E5%8D%87%E7%BA%A7vscode/">展开全文 >></a>
-    </p>
-    
-
-    
-    <div class="clearfix"></div>
-  </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
     </nav>
   
 
@@ -1318,6 +1328,26 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">多旋翼飞行器</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">C++</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">虚函数</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">QT5.9</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">Qt</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">字幕滚动</a>
               </li>
             
             <div class="clearfix"></div>
